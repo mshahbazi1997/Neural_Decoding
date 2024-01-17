@@ -294,6 +294,8 @@ class KalmanFilterRegression(object):
         state=X[:,0] #Initial state
         states[:,0]=np.copy(np.squeeze(state))
 
+        K_all = []
+
         #Get predicted state for every time bin
         for t in range(X.shape[1]-1):
             #Do first part of state update - based on transition matrix
@@ -302,11 +304,14 @@ class KalmanFilterRegression(object):
 
             #Do second part of state update - based on measurement matrix
             K=P_m*H.T*inv(H*P_m*H.T+Q) #Calculate Kalman gain
+            K_all.append(K)
             P=(np.matrix(np.eye(num_states))-K*H)*P_m
             state=state_m+K*(Z[:,t+1]-H*state_m)
             states[:,t+1]=np.squeeze(state) #Record state at the timestep
         y_test_predicted=states.T
-        return y_test_predicted
+
+
+        return y_test_predicted, K_all
 
 
 

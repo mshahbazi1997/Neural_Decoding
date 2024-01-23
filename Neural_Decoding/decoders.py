@@ -49,7 +49,8 @@ try:
     keras_v1=int(keras.__version__[0])<=1
     from keras.models import Sequential
     from keras.layers import Dense, LSTM, SimpleRNN, GRU, Activation, Dropout
-    from keras.utils import np_utils
+    from keras.utils import to_categorical
+    #import np_utils
 except ImportError:
     print("\nWARNING: Keras package is not installed. You will be unable to use all neural net decoders")
     pass
@@ -1227,9 +1228,9 @@ class DenseNNClassification(object):
 
         #Use one-hot coding for y
         if y_train.ndim==1:
-            y_train=np_utils.to_categorical(y_train.astype(int))
+            y_train=to_categorical(y_train.astype(int))
         elif y_train.shape[1]==1:
-            y_train=np_utils.to_categorical(y_train.astype(int))
+            y_train==to_categorical(y_train.astype(int))
 
         model=Sequential() #Declare model
         #Add first hidden layer
@@ -1327,9 +1328,9 @@ class SimpleRNNClassification(object):
 
         #Use one-hot coding for y
         if y_train.ndim==1:
-            y_train=np_utils.to_categorical(y_train.astype(int))
+            y_train=to_categorical(y_train.astype(int))
         elif y_train.shape[1]==1:
-            y_train=np_utils.to_categorical(y_train.astype(int))
+            y_train=to_categorical(y_train.astype(int))
 
         model=Sequential() #Declare model
         #Add recurrent layer
@@ -1427,9 +1428,9 @@ class GRUClassification(object):
 
         #Use one-hot coding for y
         if y_train.ndim==1:
-            y_train=np_utils.to_categorical(y_train.astype(int))
+            y_train=to_categorical(y_train.astype(int))
         elif y_train.shape[1]==1:
-            y_train=np_utils.to_categorical(y_train.astype(int))
+            y_train=to_categorical(y_train.astype(int))
 
         model=Sequential() #Declare model
         #Add recurrent layer
@@ -1524,9 +1525,9 @@ class LSTMClassification(object):
 
         #Use one-hot coding for y
         if y_train.ndim==1:
-            y_train=np_utils.to_categorical(y_train.astype(int))
+            y_train=to_categorical(y_train.astype(int))
         elif y_train.shape[1]==1:
-            y_train=np_utils.to_categorical(y_train.astype(int))
+            y_train=to_categorical(y_train.astype(int))
 
         model=Sequential() #Declare model
         #Add recurrent layer
